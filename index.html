@@ -350,6 +350,14 @@
   .s-轉正職 .strategy-color-bar { background: var(--tag-轉正職-text); }
   .s-轉正職 .strategy-badge { color: var(--tag-轉正職-text); }
   .s-轉正職 .card::before { background: var(--tag-轉正職-text); }
+  .s-跨部會最新方案 .strategy-color-bar { background: #9b5de5; }
+  .s-跨部會最新方案 .strategy-badge { color: #9b5de5; }
+  .s-跨部會最新方案 .card::before { background: #9b5de5; }
+  .pill[data-filter="跨部會最新方案"].active { background: #9b5de5; border-color: #9b5de5; color: white; }
+  .s-地方政府最新措施 .strategy-color-bar { background: #e07b39; }
+  .s-地方政府最新措施 .strategy-badge { color: #e07b39; }
+  .s-地方政府最新措施 .card::before { background: #e07b39; }
+  .pill[data-filter="地方政府最新措施"].active { background: #e07b39; border-color: #e07b39; color: white; }
 
   /* NO RESULTS */
   .no-results {
@@ -389,13 +397,19 @@
 
 <div class="filter-bar">
   <span class="filter-label">篩選策略</span>
-  <div class="filter-pills">
-    <button class="pill active" data-filter="all">全部</button>
-    <button class="pill" data-filter="定方向">定方向</button>
-    <button class="pill" data-filter="增人才">增人才</button>
-    <button class="pill" data-filter="促就業">促就業</button>
-    <button class="pill" data-filter="爭好薪">爭好薪</button>
-    <button class="pill" data-filter="轉正職">轉正職</button>
+  <div style="display:flex;flex-direction:column;gap:0.5rem;">
+    <div class="filter-pills">
+      <button class="pill active" data-filter="all">全部</button>
+      <button class="pill" data-filter="定方向">定方向</button>
+      <button class="pill" data-filter="增人才">增人才</button>
+      <button class="pill" data-filter="促就業">促就業</button>
+      <button class="pill" data-filter="爭好薪">爭好薪</button>
+      <button class="pill" data-filter="轉正職">轉正職</button>
+    </div>
+    <div class="filter-pills">
+      <button class="pill" data-filter="跨部會最新方案" style="border-color:#9b5de5;color:#9b5de5;">跨部會最新方案</button>
+      <button class="pill" data-filter="地方政府最新措施" style="border-color:#e07b39;color:#e07b39;">地方政府最新措施</button>
+    </div>
   </div>
   <div class="search-box">
     <span class="search-icon">🔍</span>
@@ -504,6 +518,51 @@ const data = [
       { name: "獎勵雇主僱用青年", measure: "雇主補貼", agency: "勞動部", target: "企業/雇主", plan: "僱用獎助", link: "https://emps.wda.gov.tw/Internet/Index/employer-grants.aspx" },
       { name: "多元就業開發方案", measure: "創造公共性在地就業崗位，促進青年就業", agency: "勞動部", target: "企業/雇主", plan: "多元就業開發方案", link: "https://se.wda.gov.tw/ProjDesc/MultipleEmploymentProgram/2" },
       { name: "培力就業計畫", measure: "創造公共性在地就業崗位，促進青年就業", agency: "勞動部", target: "企業/雇主", plan: "培力就業計畫", link: "https://se.wda.gov.tw/ProjDesc/MultipleEmploymentProgram/3" },
+    ]
+  },
+  {
+    strategy: "跨部會最新方案",
+    issue: "跨部會協力推動",
+    items: [
+      { name: "婦女再就業計畫（112至115年）", measure: "自主訓練獎勵或再就業獎勵最高3萬元；雇主工時調整獎勵每月3,000元", agency: "勞動部", target: "因婚育離職逾180日之女性", plan: "婦女再就業計畫", link: "https://thmr.wda.gov.tw/cp.aspx?n=B0370D1AB12BDB97" },
+      { name: "青年生涯領航計畫（115年起）", measure: "實踐獎金最高24萬元、職場歷練獎金最高4萬元、專業認證獎金5,000元；引導為期兩年之職涯探索", agency: "教育部", target: "高中職應屆畢業生", plan: "青年生涯領航計畫", link: "https://www.yda.gov.tw/plan.aspx?p=1012&rn=-2822" },
+      { name: "地方創生人才培育（青聚點 & Changemaker）", measure: "青聚點提供地方創生課程與蹲點實作（Dreamer培訓）；Changemaker鼓勵組隊提出社區創意解方", agency: "教育部", target: "15–35歲（青聚點）；18–35歲（Changemaker）", plan: "地方創生人才培育", link: "https://www.yda.gov.tw/plan.aspx?p=1056" },
+      { name: "青年創業貸款（114年7月修訂）", measure: "提供便捷融資管道，協助解決資金周轉與資本支出需求", agency: "經濟部", target: "設立登記未滿8年之事業", plan: "青年創業貸款", link: "https://www.sme.gov.tw/article-tw-2570-4238" },
+      { name: "《中小企業發展條例》稅制優化（113年修正）", measure: "增僱薪資支出可自所得額2倍扣除；為基層員工加薪可按增加薪資175%加成減除", agency: "經濟部", target: "增僱24歲以下或65歲以上本國籍基層員工之企業", plan: "中小企業發展條例稅制優化", link: "" },
+      { name: "國家人才競爭力躍升方案（113至116年）", measure: "提升數位技能與人文素養，對接AI、半導體等未來產業；支持青年拓展國際視野", agency: "國發會", target: "青年族群（數位／淨零轉型導向）", plan: "國家人才競爭力躍升方案", link: "https://ws.ndc.gov.tw/001/administrator/10/relfile/0/15915/f79b691e-776e-4893-8b41-1bf5c2d79b88.pdf" },
+      { name: "臺灣2050淨零排放路徑", measure: "透過產業綠色轉型創造綠色就業；引導投入低碳商業模式與淨零技術研發應用，確保跨世代正義", agency: "國發會", target: "年輕世代", plan: "臺灣2050淨零排放路徑", link: "https://ncsd.ndc.gov.tw/Fore/nsdn/about0/2050Path" },
+      { name: "打造永續共好地方創生計畫（114至117年）", measure: "建置「青年培力工作站」（資深帶新進）；提供「獎勵青年投入地方創生行動計畫」獎勵金，降低創業初期風險", agency: "國發會", target: "有意留鄉／返鄉之青年", plan: "打造永續共好地方創生計畫", link: "https://www.ey.gov.tw/Page/448DE008087A1971/b4f79cf0-13c4-4409-a2e7-b25f143e7f6b" },
+      { name: "「洄游農村Plus」整合平台", measure: "串聯獎勵高中生從農、大專生迴游農村競賽、青年回鄉行動獎勵計畫；最高獎勵金80萬元，附陪伴輔導", agency: "農業部", target: "高中生至青年返鄉者", plan: "洄游農村Plus", link: "https://ruralup.ardswc.gov.tw/" },
+      { name: "促進原住民族就業獎勵計畫", measure: "依投保薪資級距每月發給3,000–10,000元就業獎勵金（最長18個月）；優先支持營造業轉型與薪資提升", agency: "原民會", target: "15歲以上原住民勞工", plan: "促進原住民族就業獎勵計畫", link: "https://www.cip.gov.tw/zh-tw/news/data-list/6EBC9C8CB9DEF1E4/8460768000536E296E2FD5FC7B2A212C-info.html" },
+      { name: "青年科技創新創業基地建置計畫（TTA）", measure: "透過Taiwan Tech Arena凝聚加速器、創投與大企業能量；參與CES、VivaTech等國際大展及路演，協助對接全球市場與國際投資人", agency: "國科會", target: "青年創業者", plan: "Taiwan Tech Arena", link: "https://www.taiwanarena.tech/" },
+      { name: "文化創意產業青年創業貸款", measure: "降低融資門檻；提供最長5年利息補貼，強化文創事業初期資金穩定度", agency: "文化部", target: "文創產業青年創業者", plan: "文化創意產業青年創業貸款", link: "https://taicca.tw/funds/financing_service/detail/1" },
+      { name: "UNEXT 數位創新人才增能培育計畫（114年7月起）", measure: "見習每月至少20小時、共150小時，發給3萬元見習津貼；企業延續培育則補助每人2萬元津貼", agency: "數位部", target: "跨領域數位人才", plan: "UNEXT數位創新人才增能培育計畫", link: "https://moda.gov.tw/ADI/news/events/19510" },
+      { name: "淨零綠領人才培育課程（114年4月起）", measure: "成立「淨零綠領人才培育聯盟」，培訓溫室氣體盤查、產品碳足跡等技能；30歲以下在學生半額補助6,000元；中低收入戶／身心障礙者全額補助12,000元", agency: "環境部", target: "大專院校學生（含弱勢族群優惠）", plan: "淨零綠領人才培育課程", link: "https://greencollar.moenv.gov.tw/MajorLeagueClass/Index" },
+    ]
+  },
+  {
+    strategy: "地方政府最新措施",
+    issue: "各縣市就業創業補助",
+    items: [
+      { name: "青年實習津貼計畫", measure: "實習滿60日補助1萬元、90日補助1.5萬元；交通補助最高3,600元；健檢補助最高1,000元。中低收入戶最高可領34,600元。", agency: "台北市", target: "35歲以下青年", plan: "青年實習津貼計畫", link: "" },
+      { name: "青年創新職場實習補助", measure: "每位實習青年每月補助最高6,000元；應屆畢業生提高至12,000元，最長6個月，每單位最高可申請15萬元。", agency: "台北市", target: "企業/組織（僱主端）", plan: "青年創新職場實習補助", link: "" },
+      { name: "青年全方位就業計畫", measure: "輔導津貼每次5,000元（最多3次）；職訓補助最高15,000元；成功轉為典型工作滿90日者，加發15,000元獎勵金。", agency: "新北市", target: "18–29歲失業逾180日或近2年從事非典型工作逾90日之青年", plan: "青年全方位就業計畫", link: "" },
+      { name: "青創貸款", measure: "5年創業貸款利息「全額補貼」。", agency: "新北市", target: "有創業需求之青年", plan: "青創貸款", link: "" },
+      { name: "Future Ready 青年實習專區", measure: "500名免費AI履歷健檢、3,000元實習獎勵金、25場職場體驗活動。", agency: "新北市", target: "設籍/居住/就學新北市之18–29歲青年", plan: "Future Ready 青年實習專區", link: "" },
+      { name: "青年安薪就業讚方案", measure: "受僱滿3個月獎勵9,000元，滿6個月再獎勵12,000元，最高21,000元；僱用單位每僱用1人滿6個月可領10,000元。", agency: "桃園市", target: "15–29歲、高中職以上畢業之待業青年", plan: "青年安薪就業讚方案", link: "" },
+      { name: "青年技術士證照獎勵方案", measure: "甲級2萬元、乙級8,000元、照服員1,000元；重返職場者另加1,000元。", agency: "桃園市", target: "考取技術士證照之青年", plan: "青年技術士證照獎勵方案", link: "" },
+      { name: "青年就業金安薪", measure: "就業滿1、3、6個月分階段領5,000、8,000、12,000元；弱勢青年加碼最高可領38,000元。", agency: "台中市", target: "本國籍29歲以下失業青年", plan: "青年就業金安薪", link: "" },
+      { name: "青年AI數位工具補助", measure: "訂閱AI工具費用補助每人每年最高3,000元；弱勢青年最高6,000元。", agency: "新竹市", target: "新竹市青年", plan: "青年AI數位工具補助", link: "" },
+      { name: "數位創新青年培育就業計畫", measure: "提供數位轉型實務課程、企業實習津貼，補助取得AI或數位相關國際證照。", agency: "新竹縣", target: "有意投入科技產業之青年", plan: "數位創新青年培育就業計畫", link: "" },
+      { name: "青年安薪就業計畫", measure: "連續受僱同一雇主滿30日起，每月發2,000元，最高6個月，合計12,000元。", agency: "彰化縣", target: "18–45歲本國籍留鄉/返鄉/移居青年", plan: "青年安薪就業計畫", link: "" },
+      { name: "青年職場實習創薪加倍領計畫", measure: "補助企業實習費7,000–14,000元、指導費5,000–10,000元；畢業後留任者每月再加2,000元，最長6個月。", agency: "彰化縣", target: "完成240或480小時實習之青年", plan: "青年職場實習創薪加倍領計畫", link: "" },
+      { name: "青年穩定就業補助加碼方案", measure: "連續就業滿6個月補助2萬元、滿1年再補助3萬元；創業貸款5年全額利息補貼；另投入500萬支持青年海外圓夢。", agency: "宜蘭縣", target: "設籍宜蘭1年以上、30歲以下待業青年；18–45歲創業青年", plan: "青年穩定就業補助加碼方案", link: "" },
+      { name: "青年穩定就業獎助計畫", measure: "穩定工作滿6個月及12個月後分兩次領取，合計6萬元。", agency: "屏東縣", target: "15–45歲移居/返鄉/應屆畢業青年", plan: "青年穩定就業獎助計畫", link: "" },
+      { name: "看嘉本領暨青職嘉薪計畫", measure: "每連續就業滿3個月領9,000元，最長12個月，最高36,000元。", agency: "嘉義市", target: "18–29歲、工作地點在嘉義市、月薪29,500–40,000元之全時正職員工", plan: "看嘉本領暨青職嘉薪計畫", link: "" },
+      { name: "青年好投路就業獎勵金計畫", measure: "暑期實習每月交通獎勵最高2,000元；連續就業滿3個月領6,000元，滿6個月再領6,000元，最高12,000元。", agency: "南投縣", target: "16–29歲在學生（實習）；18–29歲留/返/移居未就業青年（就業）", plan: "青年好投路就業獎勵金計畫", link: "" },
+      { name: "青年投入創業補助計畫", measure: "每案最高補助20萬元，分兩期撥款，支應創業初期營運費用。", agency: "基隆市", target: "18–45歲、設籍基隆之創業青年或團隊", plan: "青年投入創業補助計畫", link: "" },
+      { name: "青年夢想家提案競賽", measure: "自選議題組最高獎金7萬元；指定議題組最高15萬元；入選者另有業師輔導。", agency: "花蓮市", target: "對公共議題有熱忱之在地或設籍花蓮的在學青年", plan: "青年夢想家提案競賽", link: "" },
+      { name: "青年鏈結地方產業專題補助計畫", measure: "每隊需由至少2名學生與校內指導老師組成；入選團隊獲2.5萬元行動獎勵金，指導老師獲5,000元指導費。", agency: "花蓮市", target: "年滿18歲、就讀花蓮縣內大專院校學生", plan: "青年鏈結地方產業專題補助計畫", link: "" },
     ]
   }
 ];
