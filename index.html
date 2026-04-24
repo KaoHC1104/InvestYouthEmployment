@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投資青年就業方案第二期</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #f7f4ef;
+    --accent: #c8502a;
+    --accent2: #2a6496;
+    --muted: #7a7a8a;
+    --rule: #d4cfc8;
+    --tag-定方向: #e8f4e8;
+    --tag-定方向-text: #2d6a2d;
+    --tag-增人才: #e8eef8;
+    --tag-增人才-text: #1a4a8a;
+    --tag-促就業: #fef3e8;
+    --tag-促就業-text: #8a4a1a;
+    --tag-爭好薪: #f8e8f0;
+    --tag-爭好薪-text: #6a1a4a;
+    --tag-轉正職: #e8f8f4;
+    --tag-轉正職-text: #1a5a4a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3rem 4rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 60px,
+      rgba(255,255,255,0.03) 60px,
+      rgba(255,255,255,0.03) 61px
+    );
+  }
+  .header-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  header h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  header p {
+    color: rgba(247,244,239,0.6);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* FILTER BAR */
+  .filter-bar {
+    background: white;
+    border-bottom: 1px solid var(--rule);
+    padding: 1rem 4rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .filter-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .filter-pills {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .pill {
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    border: 1.5px solid var(--rule);
+    background: transparent;
+    color: var(--ink);
+    transition: all 0.2s;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 400;
+  }
+  .pill:hover { border-color: var(--accent); color: var(--accent); }
+  .pill.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .pill[data-filter="定方向"].active { background: var(--tag-定方向-text); border-color: var(--tag-定方向-text); }
+  .pill[data-filter="增人才"].active { background: var(--tag-增人才-text); border-color: var(--tag-增人才-text); }
+  .pill[data-filter="促就業"].active { background: var(--tag-促就業-text); border-color: var(--tag-促就業-text); }
+  .pill[data-filter="爭好薪"].active { background: var(--tag-爭好薪-text); border-color: var(--tag-爭好薪-text); }
+  .pill[data-filter="轉正職"].active { background: var(--tag-轉正職-text); border-color: var(--tag-轉正職-text); }
+
+  .search-box {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--paper);
+    border: 1.5px solid var(--rule);
+    border-radius: 6px;
+    padding: 0.3rem 0.75rem;
+  }
+  .search-box input {
+    border: none;
+    background: transparent;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.82rem;
+    color: var(--ink);
+    outline: none;
+    width: 180px;
+  }
+  .search-box input::placeholder { color: var(--muted); }
+  .search-icon { color: var(--muted); font-size: 0.9rem; }
+
+  /* MAIN CONTENT */
+  main {
+    padding: 2.5rem 4rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* STRATEGY SECTIONS */
+  .strategy-section {
+    margin-bottom: 2.5rem;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  .strategy-section:hover {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+
+  .strategy-header {
+    display: flex;
+    align-items: stretch;
+    cursor: pointer;
+    user-select: none;
+  }
+  .strategy-color-bar {
+    width: 5px;
+    flex-shrink: 0;
+  }
+  .strategy-title-area {
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+  }
+  .strategy-badge {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .strategy-issue {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+  .strategy-count {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: var(--paper);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .strategy-toggle {
+    padding: 0 1.25rem;
+    background: white;
+    display: flex;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    transition: transform 0.3s;
+  }
+  .strategy-section.collapsed .strategy-toggle { transform: rotate(-90deg); }
+
+  /* CARDS GRID */
+  .cards-container {
+    padding: 1rem 1.25rem 1.25rem;
+    background: var(--paper);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 0.85rem;
+  }
+  .strategy-section.collapsed .cards-container { display: none; }
+
+  /* CARD */
+  .card {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: all 0.2s;
+    animation: fadeIn 0.3s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-1px); }
+  .card:hover::before { opacity: 1; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .card-measure {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+    border-left: 2px solid var(--rule);
+    padding-left: 0.6rem;
+  }
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.2rem;
+  }
+  .meta-chip {
+    font-size: 0.68rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--muted);
+    border: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+  .meta-chip.agency { color: var(--accent2); border-color: #b8d0e8; background: #f0f5fb; }
+  .meta-chip.target { color: #666; }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+    color: var(--accent2);
+    text-decoration: none;
+    margin-top: 0.2rem;
+    transition: color 0.15s;
+  }
+  .card-link:hover { color: var(--accent); text-decoration: underline; }
+  .card-link::before { content: '↗'; font-size: 0.8em; }
+
+  /* HIDDEN STATE */
+  .card.hidden { display: none; }
+  .strategy-section.hidden { display: none; }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    gap: 2rem;
+    padding: 1.5rem 4rem;
+    background: white;
+    border-bottom: 1px solid var(--rule);
+    flex-wrap: wrap;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .stat-num {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .stat-divider {
+    width: 1px;
+    background: var(--rule);
+    align-self: stretch;
+  }
+
+  /* STRATEGY COLORS */
+  .s-定方向 .strategy-color-bar { background: var(--tag-定方向-text); }
+  .s-定方向 .strategy-badge { color: var(--tag-定方向-text); }
+  .s-定方向 .card::before { background: var(--tag-定方向-text); }
+  .s-增人才 .strategy-color-bar { background: var(--tag-增人才-text); }
+  .s-增人才 .strategy-badge { color: var(--tag-增人才-text); }
+  .s-增人才 .card::before { background: var(--tag-增人才-text); }
+  .s-促就業 .strategy-color-bar { background: var(--tag-促就業-text); }
+  .s-促就業 .strategy-badge { color: var(--tag-促就業-text); }
+  .s-促就業 .card::before { background: var(--tag-促就業-text); }
+  .s-爭好薪 .strategy-color-bar { background: var(--tag-爭好薪-text); }
+  .s-爭好薪 .strategy-badge { color: var(--tag-爭好薪-text); }
+  .s-爭好薪 .card::before { background: var(--tag-爭好薪-text); }
+  .s-轉正職 .strategy-color-bar { background: var(--tag-轉正職-text); }
+  .s-轉正職 .strategy-badge { color: var(--tag-轉正職-text); }
+  .s-轉正職 .card::before { background: var(--tag-轉正職-text); }
+
+  /* NO RESULTS */
+  .no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--muted);
+    display: none;
+  }
+  .no-results.visible { display: block; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    border-top: 1px solid var(--rule);
+  }
+
+  @media (max-width: 768px) {
+    header, .filter-bar, main, .stats-bar { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .cards-container { grid-template-columns: 1fr; }
+    .search-box input { width: 120px; }
+    .strategy-badge { font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">青年就業政策 · 跨部會整合方案</div>
+  <h1>投資青年就業方案第二期</h1>
+  <p>五大策略方向 · 多項措施計畫 · 跨部會協力推動</p>
+</header>
+
+
+
+<div class="filter-bar">
+  <span class="filter-label">篩選策略</span>
+  <div class="filter-pills">
+    <button class="pill active" data-filter="all">全部</button>
+    <button class="pill" data-filter="定方向">定方向</button>
+    <button class="pill" data-filter="增人才">增人才</button>
+    <button class="pill" data-filter="促就業">促就業</button>
+    <button class="pill" data-filter="爭好薪">爭好薪</button>
+    <button class="pill" data-filter="轉正職">轉正職</button>
+  </div>
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search" placeholder="搜尋措施、機關、對象…">
+  </div>
+</div>
+
+<main id="main-content">
+  <div class="no-results" id="no-results">查無符合條件的措施，請嘗試其他關鍵字。</div>
+</main>
+
+<footer>青年就業政策資料整理 · 資料來源：各主政機關公告</footer>
+
+<script>
+const data = [
+  {
+    strategy: "定方向",
+    issue: "職涯發展",
+    items: [
+      { name: "推動職業試探教育及職業準備", measure: "學校安排學生至事業機構參觀與實習", agency: "教育部", target: "學校申請", plan: "實務增能發展計畫", link: "" },
+      { name: "鼓勵高中農業學校學生職涯探索", measure: "學生於暑假期間進行職涯探索，給予獎勵金與獎學金", agency: "農業部/教育部", target: "高職學生", plan: "獎勵高級中等學校學生從農輔導方案", link: "https://www.pkvs.ylc.edu.tw/resource/openfid.php?id=9364" },
+      { name: "建置運用職業測評工具", measure: "職業心理測驗工具", agency: "勞動部", target: "青年", plan: "臺灣就業通", link: "https://exam.taiwanjobs.gov.tw/jobexam/home/landingpage" },
+      { name: "深度就業諮詢釐清職涯方向", measure: "利用工作卡使青年接受深度就業諮詢服務", agency: "勞動部", target: "特定弱勢族群", plan: "青年職得好評計畫", link: "https://www.wda.gov.tw/News_Content.aspx?n=67&s=8070" },
+      { name: "提供青年專屬職涯輔導據點", measure: "青年職涯發展中心鏈結公立就業服務機構，提供各項服務", agency: "勞動部", target: "青年", plan: "青年職涯發展中心", link: "https://ys.wda.gov.tw/" },
+      { name: "強化大專校院職涯輔導功能", measure: "強化職涯輔導主管與人員專業知能", agency: "教育部/勞動部", target: "學校申請", plan: "青年職涯輔導資訊平台", link: "https://mycareer.yda.gov.tw/" },
+      { name: "勾稽大專畢業生就業資訊供學校運用", measure: "資料勾稽", agency: "教育部/勞動部", target: "青年", plan: "薪資行情及就業導航網站", link: "https://yoursalary.taiwanjobs.gov.tw/Salary/SalaryHome" },
+      { name: "推動國高中及大專校院職涯扎根（就業服務補助）", measure: "結合各級學校辦理職涯講座、參訪、校園徵才及協助就業準備活動", agency: "勞動部", target: "學校申請", plan: "結合大專校院辦理就業服務補助計畫", link: "https://www.wda.gov.tw/News_Content.aspx?n=33&s=17510" },
+      { name: "青年就業達人班", measure: "結合學校辦理就業準備活動", agency: "勞動部", target: "學校申請", plan: "青年就業達人班", link: "https://tkyhkm.wda.gov.tw/News_Content.aspx?n=AA9409D48C1AD221&sms=E394A8E24A21A421&s=24A8B1BFD8F33370" },
+      { name: "提升國、高中學生就業準備力計畫", measure: "提升學生就業準備", agency: "勞動部", target: "學校申請", plan: "提升國、高中學生就業準備力計畫", link: "https://tkyhkm.wda.gov.tw/News_Content.aspx?n=C240FE7788FC3250&sms=59917AA7A42364B0&s=B1BC2DCC02178E5C" },
+    ]
+  },
+  {
+    strategy: "增人才",
+    issue: "產業人才供需落差",
+    items: [
+      { name: "擇定重點產業盤點人力需求", measure: "辦理人力供需調查及推估，協助青年投入重點產業", agency: "勞動部/國發會", target: "青年", plan: "產業人力供需資訊網", link: "https://theme.ndc.gov.tw/manpower/" },
+      { name: "協力推動職能基準發展", measure: "職能基準項目更新", agency: "勞動部", target: "一般青年/大眾", plan: "icap職能發展應用平台", link: "https://icap.wda.gov.tw/ap/index.php" },
+      { name: "引導青年創新學習並動手實踐", measure: "透過創客基地辦理實體活動", agency: "勞動部", target: "一般青年/大眾", plan: "新竹市「衣啟飛翔創客基地」", link: "https://thmr.wda.gov.tw/cp.aspx?n=2F3AA6D426CAAB64" },
+      { name: "向下扎根技能學習（國中技藝教育）", measure: "技藝教育課程競賽及成果展發表", agency: "教育部", target: "國中學生", plan: "國中技藝教育", link: "https://cirn.moe.edu.tw/WebFile/index.aspx?sid=1204&mid=13930" },
+      { name: "向下扎根技能學習（高中技藝競賽）", measure: "技藝教育課程競賽", agency: "教育部", target: "高職學生", plan: "高級中等學生技藝競賽", link: "https://sci-me.k12ea.gov.tw/" },
+      { name: "全國技能競賽", measure: "辦理技能競賽", agency: "勞動部", target: "大專院校學生/青年", plan: "全國技能競賽", link: "https://ws.wda.gov.tw/Download.ashx?u=LzAwMS9VcGxvYWQvMzMxL3JlbGZpbGUvMTAyNDgvMTg1MjI2L2NhNmFkYTc4LTE5ZDItNGQxOS05NmQxLWIwYjhhNTk2YzQ4Zi5wZGY%3D&n=56ysNTblsYblhajlnIvmioDog73nq7bos73kuK3ljYDliIbljYDmioDog73nq7bos73nsKHnq6AucGRm" },
+      { name: "推動能力鑑定（iPAS）", measure: "證照考試", agency: "經濟部", target: "青年", plan: "iPAS經濟部產業人才能力鑑定推動網", link: "https://ipd.nat.gov.tw/ipas/" },
+      { name: "推動能力鑑定（技術士）", measure: "證照考試", agency: "勞動部", target: "青年", plan: "全國技術士技能檢定", link: "https://skill.tcte.edu.tw/notice.php" },
+      { name: "推動企業實作養成青年就業能力", measure: "企業主管擔任業師，補助證照費用", agency: "數位發展部", target: "社會新鮮人", plan: "數位青年T大使推動計畫", link: "https://imo.3t.org.tw/" },
+    ]
+  },
+  {
+    strategy: "促就業",
+    issue: "青年失業",
+    items: [
+      { name: "獎勵青年投入缺工產業", measure: "公立就業服務機構媒合照服人員職缺", agency: "勞動部", target: "特定弱勢族群", plan: "缺工就業獎勵", link: "https://emps.wda.gov.tw/Internet/Index/labor-shortage.aspx" },
+      { name: "鼓勵青年拓展尋職就業範圍", measure: "交通補助/異地就業補助/搬遷補助", agency: "勞動部", target: "特定弱勢族群", plan: "青年跨域就業促進補助", link: "https://emps.wda.gov.tw/Internet/Index/labor-allowance.aspx" },
+      { name: "獎勵青年積極尋職", measure: "深度就業諮詢後，視就業狀況核發就業獎勵金", agency: "勞動部", target: "特定弱勢族群", plan: "青年職得好評計畫", link: "https://www.wda.gov.tw/News_Content.aspx?n=67&s=8070" },
+      { name: "初次尋職及非典型青年尋職津貼及就業獎勵", measure: "給予初次尋職青年尋職津貼與就業獎勵", agency: "勞動部", target: "社會新鮮人", plan: "支援青年就業計畫", link: "https://special.taiwanjobs.gov.tw/internet/2025/YNGSRH/page-01.html" },
+      { name: "追蹤青年就業流向以掌握案源", measure: "資料勾稽", agency: "教育部/勞動部", target: "青年", plan: "台灣就業通", link: "https://www.taiwanjobs.gov.tw/Internet/Index/index.aspx" },
+      { name: "提供青年多元就業服務通路", measure: "台灣就業通網站資訊", agency: "勞動部", target: "青年", plan: "台灣就業通", link: "https://www.taiwanjobs.gov.tw/Internet/Index/index.aspx" },
+      { name: "優化求職網站職缺搜尋功能", measure: "台灣就業通網站資訊", agency: "勞動部", target: "青年", plan: "台灣就業通", link: "https://www.taiwanjobs.gov.tw/Internet/Index/index.aspx" },
+      { name: "跨部會個案轉介連結（勞動部）", measure: "公立就業服務機構協助轉介就業", agency: "勞動部", target: "特定弱勢族群", plan: "公立就業服務機構", link: "https://job.taiwanjobs.gov.tw/internet/index/service_location_map.aspx" },
+      { name: "提升少年自理生活適應協助服務", measure: "跨部會個案轉介連結", agency: "衛生福利部", target: "特定弱勢族群", plan: "提升少年自理生活適應協助服務", link: "https://www.teen-idf.org.tw//UpLoad/%e6%8f%90%e5%8d%87%e5%b0%91%e5%b9%b4%e8%87%aa%e7%ab%8b%e7%94%9f%e6%b4%bb%e9%81%a9%e6%87%89%e5%8d%94%e5%8a%a9%e6%9c%8d%e5%8b%99%e9%87%8f%e8%83%bd%e8%a8%88%e7%95%ab_20240523092155.pdf" },
+      { name: "跨部會個案轉介連結（法務部）", measure: "公立就業服務機構協助轉介就業", agency: "法務部", target: "特定弱勢族群", plan: "公立就業服務機構", link: "https://job.taiwanjobs.gov.tw/internet/index/service_location_map.aspx" },
+      { name: "U-Start創新創業計畫", measure: "提供創業個人或團隊諮詢輔導與資金協助", agency: "教育部", target: "青年", plan: "U-Start創新創業計畫", link: "https://ustart.yda.gov.tw/" },
+      { name: "微型創業鳳凰", measure: "提供創業諮詢輔導與資金協助", agency: "勞動部", target: "青年", plan: "微型創業鳳凰網站", link: "https://beboss.wda.gov.tw/" },
+      { name: "青年創業及啟動金貸款", measure: "提供創業資金協助", agency: "經濟部", target: "青年", plan: "青年創業及啟動金貸款", link: "https://www.sme.gov.tw/article-tw-2570-4238" },
+      { name: "新創圓夢網", measure: "提供創業輔導資源", agency: "經濟部", target: "青年", plan: "新創圓夢網", link: "https://startup.sme.gov.tw/home/" },
+      { name: "建構友善職場（哺乳室補助）", measure: "補助雇主提供哺(集)乳室", agency: "勞動部", target: "企業申請", plan: "補助提供哺(集)乳與托兒設(措)施", link: "" },
+      { name: "青少年生涯探索號計畫", measure: "就業協助", agency: "教育部", target: "特定弱勢族群", plan: "青少年生涯探索號計畫", link: "https://www.yda.gov.tw/plan.aspx?p=2012" },
+      { name: "就業促進津貼", measure: "公立就業服務站協助就業", agency: "勞動部", target: "特定弱勢族群", plan: "就業促進津貼", link: "https://job.taiwanjobs.gov.tw/Internet/Index/DocDetail.aspx?uk=1438&docid=18681" },
+      { name: "辦理少年矯正機關收容少年就業促進服務", measure: "就業協助", agency: "法務部", target: "特定弱勢族群", plan: "辦理少年矯正機關收容少年就業促進服務實施原則", link: "https://laws.mol.gov.tw/FLAW/FLAWDAT01.aspx?id=FL080802" },
+      { name: "鼓勵原住民青年穩定就業", measure: "公立就業服務機構協助就業", agency: "勞動部", target: "特定弱勢族群", plan: "公立就業服務機構", link: "https://job.taiwanjobs.gov.tw/internet/index/service_location_map.aspx" },
+      { name: "協助身心障礙青年穩定就業", measure: "公立就業服務機構協助就業", agency: "勞動部", target: "特定弱勢族群", plan: "職業重建個案管理服務", link: "https://orsd.wda.gov.tw/employmentResources/career_services" },
+      { name: "鼓勵青銀共創，世代共融", measure: "以中高齡者與高齡者為主要宣傳對象", agency: "勞動部", target: "青年", plan: "45+就業資源網", link: "https://45plus.wda.gov.tw/" },
+      { name: "協助長期失業及弱勢者就業", measure: "公立就業服務機構協助就業", agency: "勞動部", target: "特定弱勢族群", plan: "僱用獎助", link: "https://emps.wda.gov.tw/Internet/Index/employer-grants.aspx" },
+    ]
+  },
+  {
+    strategy: "爭好薪",
+    issue: "青年低薪",
+    items: [
+      { name: "配合產業人力需求調整學校科系", measure: "科系調整", agency: "教育部", target: "學校", plan: "—", link: "" },
+      { name: "職場體驗累積職涯歷練", measure: "提供青年多項實習計畫", agency: "教育部", target: "青年", plan: "RICH職場體驗網（含多項子計畫）", link: "https://rich.yda.gov.tw/home" },
+      { name: "擴大優質產學合作（產學攜手2.0）", measure: "提供青年實習計畫，並給予大專院校相關補助計畫", agency: "教育部/勞動部", target: "在校學生", plan: "產學攜手2.0計畫", link: "https://ttms.etraining.gov.tw/eYVTR/ePlaninfo/Index8?type=9" },
+      { name: "建置區域產業人才及技術培育基地", measure: "提供青年實習計畫，並給予大專院校相關補助", agency: "教育部", target: "學校申請", plan: "建置區域產業人才及技術培育基地計畫", link: "https://iac.twaea.org.tw/tbitt/" },
+      { name: "補助大專校院就業學程企業預聘青年計畫", measure: "提供青年實習計畫", agency: "勞動部", target: "大專院校學生/青年", plan: "補助大專校院就業學程企業預聘青年計畫", link: "https://ttms.etraining.gov.tw/eYVTR/ePlaninfo/Index13?type=14" },
+      { name: "提供符合產業趨勢及就業市場之訓練課程", measure: "提供待業、失業、就業中青年與企業相關職業訓練措施", agency: "勞動部", target: "青年/企業申請", plan: "職業訓練整合網（含多項子計畫）", link: "https://course.taiwanjobs.gov.tw/download?pid=a2101306-67bc-4b5f-947f-8ca474b9c9a4" },
+      { name: "農民學院（農業專業技術訓練）", measure: "專業技術訓練", agency: "農業部", target: "青年", plan: "農業專業訓練課程網站", link: "https://academy.moa.gov.tw/list.php?id=19" },
+      { name: "原住民族青年暑期職場體驗", measure: "職場體驗", agency: "原住民族委員會", target: "在校學生", plan: "原住民族青年暑期工讀計畫", link: "https://www.cip.gov.tw/zh-tw/news/data-list/0F1E8AF51650C21A/index.html?cumid=0F1E8AF51650C21A" },
+      { name: "青年取得重點產業職類技術士證及穩定就業獎勵試辦計畫", measure: "證照獎勵金與就業獎勵金", agency: "勞動部", target: "青年", plan: "113年結束已停辦", link: "" },
+      { name: "引導跨域學習及數位人才培育措施", measure: "開設數位人文跨域課程", agency: "教育部", target: "學校申請", plan: "數位人文跨域人才智慧領航計畫", link: "https://sites.google.com/view/digihumanity/" },
+      { name: "協助高中職青年提升職場知識技能", measure: "先就業再升學", agency: "勞動部", target: "在校學生", plan: "青年就業領航計畫", link: "https://youthjob.taiwanjobs.gov.tw/youthjob/" },
+      { name: "透過國際交流合作，強化職訓師技能", measure: "職訓師活動", agency: "勞動部", target: "特定對象", plan: "國際工作坊與論壇", link: "" },
+      { name: "推動職業訓練課程之國際交流", measure: "職訓師活動", agency: "勞動部", target: "特定對象", plan: "國際討論及諮詢會議", link: "" },
+    ]
+  },
+  {
+    strategy: "轉正職",
+    issue: "青年非典型就業",
+    items: [
+      { name: "辦理就業促進研習活動", measure: "公立就業服務機構提供各項服務", agency: "勞動部", target: "一般青年/大眾", plan: "公立就業服務機構", link: "https://job.taiwanjobs.gov.tw/internet/index/service_location_map.aspx" },
+      { name: "提供青年職場學習及再適應機會", measure: "提供弱勢青年職場學習工作機會與津貼補助", agency: "勞動部", target: "特定弱勢族群", plan: "職場學習及再適應計畫", link: "https://emps.wda.gov.tw/Internet/Index/labor-other.aspx" },
+      { name: "工作百科提供職業世界資料", measure: "台灣就業通網站資訊", agency: "勞動部", target: "一般青年/大眾", plan: "Jobooks工作百科系統", link: "https://jobooks.taiwanjobs.gov.tw/" },
+      { name: "提供產業發展資訊", measure: "台灣就業通網站資訊", agency: "經濟部", target: "一般青年/大眾", plan: "台灣就業通網站產業快訊", link: "https://job.taiwanjobs.gov.tw/internet/index/docList.aspx?uk=2740" },
+      { name: "鼓勵大專院校學生認識探索農村", measure: "大專院校教師應用創新課程降專業知識融入", agency: "農業部", target: "學校/學生", plan: "洄游農村plus網站", link: "https://ruralup.ardswc.gov.tw/" },
+      { name: "宣導青年優質勞動形象", measure: "文宣宣導", agency: "勞動部", target: "一般青年/大眾", plan: "運用實體與線上通路宣傳", link: "" },
+      { name: "跨部會開發就業機會", measure: "跨部會人力供需合作平台", agency: "勞動部", target: "一般青年/大眾", plan: "經濟部產業人才發展資訊網", link: "https://ipd.nat.gov.tw/italent/" },
+      { name: "外展人員開拓職缺", measure: "職缺開發", agency: "勞動部", target: "一般青年/大眾", plan: "公立就業服務站", link: "https://job.taiwanjobs.gov.tw/internet/index/service_location_map.aspx" },
+      { name: "獎勵雇主僱用青年", measure: "雇主補貼", agency: "勞動部", target: "企業/雇主", plan: "僱用獎助", link: "https://emps.wda.gov.tw/Internet/Index/employer-grants.aspx" },
+      { name: "多元就業開發方案", measure: "創造公共性在地就業崗位，促進青年就業", agency: "勞動部", target: "企業/雇主", plan: "多元就業開發方案", link: "https://se.wda.gov.tw/ProjDesc/MultipleEmploymentProgram/2" },
+      { name: "培力就業計畫", measure: "創造公共性在地就業崗位，促進青年就業", agency: "勞動部", target: "企業/雇主", plan: "培力就業計畫", link: "https://se.wda.gov.tw/ProjDesc/MultipleEmploymentProgram/3" },
+    ]
+  }
+];
+
+// Build DOM
+const main = document.getElementById('main-content');
+let totalCards = 0;
+let totalLinks = 0;
+
+data.forEach(section => {
+  const count = section.items.length;
+  totalCards += count;
+  totalLinks += section.items.filter(i => i.link).length;
+
+  const sec = document.createElement('div');
+  sec.className = `strategy-section s-${section.strategy}`;
+  sec.dataset.strategy = section.strategy;
+
+  sec.innerHTML = `
+    <div class="strategy-header" onclick="toggleSection(this)">
+      <div class="strategy-color-bar"></div>
+      <div class="strategy-title-area">
+        <span class="strategy-badge">${section.strategy}</span>
+        <span class="strategy-issue">${section.issue}</span>
+        <span class="strategy-count">${count} 項措施</span>
+      </div>
+      <div class="strategy-toggle">▼</div>
+    </div>
+    <div class="cards-container" id="cards-${section.strategy}">
+      ${section.items.map((item, i) => `
+        <div class="card" style="animation-delay:${i*0.04}s" 
+             data-text="${[item.name, item.measure, item.agency, item.target, item.plan].join(' ').toLowerCase()}">
+          <div class="card-name">${item.plan && item.plan !== '—' ? item.plan : item.name}</div>
+          ${item.measure ? `<div class="card-measure">${item.measure}</div>` : ''}
+          <div class="card-meta">
+            <span class="meta-chip agency">🏛 ${item.agency}</span>
+            <span class="meta-chip target">👥 ${item.target}</span>
+          </div>
+          ${item.link ? `<a class="card-link" href="${item.link}" target="_blank" rel="noopener">${item.name}</a>` : ''}
+        </div>
+      `).join('')}
+    </div>
+  `;
+  main.insertBefore(sec, document.getElementById('no-results'));
+});
+
+
+
+// Filter
+let activeFilter = 'all';
+let searchQuery = '';
+
+function applyFilters() {
+  const sections = document.querySelectorAll('.strategy-section');
+  let anyVisible = false;
+
+  sections.forEach(sec => {
+    const strategy = sec.dataset.strategy;
+    const stratMatch = activeFilter === 'all' || activeFilter === strategy;
+    if (!stratMatch) { sec.classList.add('hidden'); return; }
+
+    const cards = sec.querySelectorAll('.card');
+    let visibleCards = 0;
+    cards.forEach(card => {
+      const text = card.dataset.text || '';
+      const match = !searchQuery || text.includes(searchQuery);
+      card.classList.toggle('hidden', !match);
+      if (match) visibleCards++;
+    });
+
+    if (visibleCards === 0 && searchQuery) {
+      sec.classList.add('hidden');
+    } else {
+      sec.classList.remove('hidden');
+      anyVisible = true;
+    }
+  });
+
+  document.getElementById('no-results').classList.toggle('visible', !anyVisible);
+}
+
+document.querySelectorAll('.pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    activeFilter = pill.dataset.filter;
+    applyFilters();
+  });
+});
+
+document.getElementById('search').addEventListener('input', e => {
+  searchQuery = e.target.value.trim().toLowerCase();
+  applyFilters();
+});
+
+function toggleSection(header) {
+  const sec = header.closest('.strategy-section');
+  sec.classList.toggle('collapsed');
+}
+</script>
+</body>
+</html>
